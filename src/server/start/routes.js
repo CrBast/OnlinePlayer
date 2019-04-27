@@ -16,7 +16,22 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.on('/login').render('login').as('login')
+Route.on('/login', ({ view, response }) => {
+    try {
+        auth.check()
+
+    } catch (error) {
+        response.route('home')
+    }
+}).render('login').as('login')
+//Route.post('/login', '')
 Route.get('/', () => {
     return 'logged in'
-}).middleware('userVerificator')
+}).middleware('userVerificator').as('home')
+
+Route.group(() => {
+    Route.get('auth', 'ApiV1.login')
+}).prefix('api/v1').formats(['json'])
+
+
+Route.any('*', ({ response }) => { response.route('home') })
