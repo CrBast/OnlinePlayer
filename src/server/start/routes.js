@@ -30,7 +30,7 @@ Route.get('/', () => {
 }).middleware('userVerificator').as('home')
 
 Route.group(() => {
-    Route.get('auth', 'ApiV1.login')
+    Route.get('auth', 'ApiV1Controller.login')
 }).prefix('api/v1').formats(['json'])
 
 

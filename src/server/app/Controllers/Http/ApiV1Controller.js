@@ -5,9 +5,11 @@ class ApiV1Controller {
         const data = request.only(['username', 'password'])
         try {
             await auth.attempt(data.username, data.password).remember()
-        } catch (error) {
-
+            response.send("{OK}")
+        } catch (E_USER_NOT_FOUND) {
+            return response.status(401).send("not Okay");
         }
+        response.send("{OK}")
     }
 }
 
