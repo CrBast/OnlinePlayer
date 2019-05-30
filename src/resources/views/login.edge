@@ -6,8 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{ style('css/login') }}
     <title>Login</title>
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <link rel="icon" type="image/png" href="./img/icon.png" />
+    {{ script('js/jquery') }}
+    <link rel="icon" href="{{ assetsUrl('icon.png') }}" />
+    <script type="text/javascript">
+
+    </script>
 </head>
 <body>
 <span id="main">
@@ -17,12 +20,12 @@
             <div>Online<span>Player</span></div>
         </div>
         <br>
-        <div class="login">
+        <form class="login" action="#" method="get">
           <input id="getUsername" type="text" placeholder="username" name="user"><br>
           <input id="getPassword" type="password" placeholder="password" name="password"><br>
-          <input type="button" value="Login" id="login">
-          <br>
+          <button type="submit" id="login">Login</button>
           <h3>Welcome</h3>
+        </form>
     </div> 
   </span>
 </body>

@@ -24,14 +24,14 @@ Route.on('/login', ({ view, response }) => {
         response.route('home')
     }
 }).render('login').as('login')
-//Route.post('/login', '')
+
 Route.get('/', () => {
     return 'logged in'
 }).middleware('userVerificator').as('home')
 
 Route.group(() => {
     Route.get('auth', 'ApiV1Controller.login')
+    Route.post('user', 'ApiV1Controller.user_create')
 }).prefix('api/v1').formats(['json'])
-
 
 Route.any('*', ({ response }) => { response.route('home') })

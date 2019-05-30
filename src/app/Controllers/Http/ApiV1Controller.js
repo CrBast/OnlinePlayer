@@ -7,9 +7,11 @@ class ApiV1Controller {
             await auth.attempt(data.username, data.password).remember()
             response.send("{OK}")
         } catch (E_USER_NOT_FOUND) {
-            return response.status(401).send("not Okay");
+            return response.status(401).send("not Okay")
         }
-        response.send("{OK}")
+    }
+    async user_create({ }) {
+
     }
 }
 
