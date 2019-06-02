@@ -11,7 +11,7 @@ class ApiV1Controller {
         }
     }
     async user_create({ }) {
-
+        const data = request.only(['username', 'password'])
     }
 }
 

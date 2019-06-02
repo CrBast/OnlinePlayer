@@ -30,8 +30,8 @@ Route.get('/', () => {
 }).middleware('userVerificator').as('home')
 
 Route.group(() => {
-    Route.get('auth', 'ApiV1Controller.login')
-    Route.post('user', 'ApiV1Controller.user_create')
+    Route.get('auth', 'api-v1/UserController.login')
+    Route.post('user', 'api-v1/UserController.create').middleware(['auth'])
 }).prefix('api/v1').formats(['json'])
 
 Route.any('*', ({ response }) => { response.route('home') })
