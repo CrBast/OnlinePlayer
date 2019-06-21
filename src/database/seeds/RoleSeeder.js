@@ -1,5 +1,8 @@
 'use strict'
 
+/** @type {import('@adonisjs/framework/src/Hash')} */
+const Hash = use('Hash')
+
 /*
 |--------------------------------------------------------------------------
 | RoleSeeder
@@ -13,7 +16,6 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 const Database = use('Database')
-const Role = use('App/Models/Role')
 
 class RoleSeeder {
   async run() {
@@ -32,6 +34,14 @@ class RoleSeeder {
     await Database.table('roles').insert({
       name: 'visitor',
       details: 'Visitor accounts',
+      created_at: Database.fn.now(),
+      updated_at: Database.fn.now()
+    })
+
+    await Database.table('users').insert({
+      username: 'admin',
+      role_id: Database.select('id').from('roles').where({ name: 'admin' }),
+      password: await Hash.make('123456'),
       created_at: Database.fn.now(),
       updated_at: Database.fn.now()
     })

@@ -4,11 +4,11 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 class UserVerificator {
-  async handle({ response }, next) {
+  async handle({ response, auth }, next) {
     try {
-      auth.check()
+      await auth.check()
     } catch (error) {
-      response.route('login')
+      return response.route('login')
     }
     await next()
   }

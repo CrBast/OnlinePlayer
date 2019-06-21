@@ -9,7 +9,6 @@
     {{ script('js/jquery') }}
     <link rel="icon" href="{{ assetsUrl('icon.png') }}" />
     <script type="text/javascript">
-
     </script>
 </head>
 <body>
@@ -20,8 +19,8 @@
             <div>Online<span>Player</span></div>
         </div>
         <br>
-        <form class="login" action="#" method="get">
-          <input id="getUsername" type="text" placeholder="username" name="user"><br>
+      <form class="login" action="{{ route('apiLogin') }}" method="get">
+          <input id="getUsername" type="text" placeholder="username" name="username"><br>
           <input id="getPassword" type="password" placeholder="password" name="password"><br>
           <button type="submit" id="login">Login</button>
           <h3>Welcome</h3>
