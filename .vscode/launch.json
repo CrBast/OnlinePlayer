@@ -8,7 +8,7 @@
             "name": "Debug",
             "type": "node",
             "request": "launch",
-            "cwd": "${workspaceFolder}/src/server",
+            "cwd": "${workspaceFolder}/src",
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "run-script",
