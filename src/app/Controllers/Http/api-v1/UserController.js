@@ -50,7 +50,7 @@ class UserController {
         }
     }
     async getAll({ }) {
-
+        return User.all()
     }
 }
 

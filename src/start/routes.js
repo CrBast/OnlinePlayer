@@ -33,6 +33,7 @@ Route.group(() => {
     Route.get('auth', 'api-v1/UserController.login').as('apiLogin')
     Route.get('auth/logout', 'api-v1/UserController.logout')
 
+    Route.get('users', 'api-v1/UserController.getAll').middleware(['auth'])
     Route.post('users', 'api-v1/UserController.create').middleware(['auth'])
 
     Route.get('videos', 'api-v1/VideoController.getAll')
