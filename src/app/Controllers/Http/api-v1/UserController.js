@@ -1,43 +1,56 @@
 'use strict'
 
-/** @type {import('@adonisjs/framework/src/Hash')} */
-
 const Role = use('App/Models/Role')
+const User = use('App/Models/User')
+const Database = use('Database')
 
 class UserController {
-    async login({ auth, request }) {
+    async login({ auth, request, response }) {
         const data = request.only(['username', 'password'])
         try {
             await auth.check()
-            return "Okay"
+            return response.status(200).send({ message: 'You are already logged!' })
         } catch (error) {
             try {
                 return await auth.remember(true).attempt(data.username, data.password)
             } catch (error) {
-                return "bad credentials"
+                return response.status(401).send({ message: 'You are not registered!' })
             }
         }
     }
 
-    async logout({ auth }) {
+    async logout({ auth, response }) {
         try {
             await auth.check()
             await auth.logout()
-            return "okey"
+            return response.status(200).send({ message: 'Success' })
         } catch (error) {
-            return 'Not logged before'
+            return response.status(409).send({ message: 'You have to be logged' })
         }
 
     }
 
     async create({ auth, response, request }) {
         try {
-            if (auth.user.role_id != Role.where('name', "admin")) {
-                return response.status(401).send('{message: ""}').formats(['json'])
+            const adminRole = await Role.findBy('name', 'admin')
+            if (auth.user.role_id != adminRole.id) {
+                return response.status(401).send({ message: "Need admin elevation" })
             }
+            const data = request.only(['username', 'email', 'password', 'role'])
+            let user = new User()
+            user.username = data.username
+            user.email = data.email
+            user.password = data.password
+            const role = await Role.findBy('name', data.role)
+            user.role_id = role.id
+            await user.save()
+            return user
         } catch (error) {
-
+            return response.status(500).send({ message: error.message })
         }
+    }
+    async getAll({ }) {
+
     }
 }
 
